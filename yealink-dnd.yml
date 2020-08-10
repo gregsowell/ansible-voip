@@ -1,0 +1,40 @@
+---
+- name: Enable/disable DND on Yealink phones via rest API
+  hosts: localhost
+  gather_facts: false
+  vars:
+    # set enable_dnd to 1 to enable it on the phone and set it to 0 to disable it on the phone
+    enable_dnd: '0'
+    url_u: admin
+    url_p: MyPassword
+    phone_ip: 192.168.51.251
+
+  tasks:
+  - name: Enable DND
+    delegate_to: localhost
+    when: "enable_dnd == '1'"
+    uri:
+      url: "https://{{ phone_ip }}/cgi-bin/ConfigManApp.com?key=DNDOn"
+      url_username: "{{ url_u }}"
+      url_password: "{{ url_p }}"
+      method: POST
+      body: ""
+      force_basic_auth: yes
+      status_code: 200
+      validate_certs: No
+    register: _result
+
+  - name: Disable DND
+    delegate_to: localhost
+    when: "enable_dnd != '1'"
+    uri:
+      url: "https://{{ phone_ip }}/cgi-bin/ConfigManApp.com?key=DNDOff"
+      url_username: "{{ url_u }}"
+      url_password: "{{ url_p }}"
+      method: POST
+      body: ""
+      force_basic_auth: yes
+      status_code: 200
+      validate_certs: No
+    register: _result
+
