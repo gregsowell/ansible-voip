@@ -5,8 +5,8 @@
   vars:
     # set enable_dnd to 1 to enable it on the phone and set it to 0 to disable it on the phone
     enable_dnd: '0'
-    url_u: admin
-    url_p: MyPassword
+    url_u: "{{ gen1_user }}"
+    url_p: "{{ gen1_pword }}"
     phone_ip: 192.168.51.251
 
   tasks:
