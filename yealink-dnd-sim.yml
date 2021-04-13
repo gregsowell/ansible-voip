@@ -1,0 +1,9 @@
+---
+- name: yealink phone main line put on DND
+  hosts: localhost
+  gather_facts: false
+  vars:
+  tasks:
+  - name: DND main line
+    shell: echo "complete"
+    
